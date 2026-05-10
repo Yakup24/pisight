@@ -1,6 +1,6 @@
-# Raspberry Face Recognition
+# PiSight
 
-A Raspberry Pi face-recognition project built around OpenCV. The workflow is intentionally small: collect face samples, train a local recognizer, then run recognition from a camera stream.
+PiSight is a Raspberry Pi face-recognition toolkit built around OpenCV. The workflow is intentionally small: collect face samples, train a local recognizer, then run recognition from a camera stream.
 
 The project is designed for local devices. It does not upload camera frames, face samples, labels, or trained models to a remote service.
 
@@ -15,7 +15,7 @@ The project is designed for local devices. It does not upload camera frames, fac
 ## Repository Layout
 
 ```text
-raspberry_face_recognition/  Python package and CLI
+raspberry_face_recognition/  PiSight Python package and CLI
 config.example.json          Example runtime configuration
 docs/                        Setup, usage, and privacy notes
 scripts/install_pi.sh        Raspberry Pi setup helper
@@ -43,25 +43,25 @@ The `--system-site-packages` flag lets the virtual environment use the OpenCV pa
 Check the environment:
 
 ```sh
-python -m raspberry_face_recognition --config config.json doctor
+pisight --config config.json doctor
 ```
 
 Collect samples for a person:
 
 ```sh
-python -m raspberry_face_recognition --config config.json collect --name person_name
+pisight --config config.json collect --name person_name
 ```
 
 Train the recognizer:
 
 ```sh
-python -m raspberry_face_recognition --config config.json train
+pisight --config config.json train
 ```
 
 Run live recognition:
 
 ```sh
-python -m raspberry_face_recognition --config config.json recognize
+pisight --config config.json recognize
 ```
 
 ## Data
