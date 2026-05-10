@@ -10,6 +10,7 @@
   "face_height": 160,
   "scale_factor": 1.2,
   "min_neighbors": 5,
+  "min_face_size": 60,
   "confidence_threshold": 70.0,
   "display": true
 }
