@@ -1,0 +1,15 @@
+{
+  "camera_index": 0,
+  "data_dir": "data",
+  "faces_dir": "data/faces",
+  "model_path": "data/model.yml",
+  "labels_path": "data/labels.json",
+  "cascade_path": "",
+  "sample_count": 40,
+  "face_width": 160,
+  "face_height": 160,
+  "scale_factor": 1.2,
+  "min_neighbors": 5,
+  "confidence_threshold": 70.0,
+  "display": true
+}
