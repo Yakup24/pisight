@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local runtime data
+# Face images, trained models, and labels can contain personal data.
+data/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
