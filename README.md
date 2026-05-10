@@ -1,22 +1,23 @@
 # Raspberry Face Recognition
 
-A small Raspberry Pi face-recognition project built around OpenCV. The project keeps the workflow simple: collect face samples, train a local recognizer, then run recognition from a camera stream.
+A Raspberry Pi face-recognition project built around OpenCV. The workflow is intentionally small: collect face samples, train a local recognizer, then run recognition from a camera stream.
 
-The code is designed for a local device. It does not upload camera frames or face data to a remote service.
+The project is designed for local devices. It does not upload camera frames, face samples, labels, or trained models to a remote service.
 
 ## What It Does
 
 - captures labeled face samples from a Raspberry Pi camera or USB camera
-- trains an OpenCV LBPH face recognizer from the local dataset
+- trains an OpenCV LBPH face recognizer from a local dataset
 - runs live recognition with configurable confidence thresholds
 - stores datasets and trained models on disk
-- includes a basic systemd service template for running on boot
+- includes setup notes, tests, and a systemd service template
 
 ## Repository Layout
 
 ```text
 raspberry_face_recognition/  Python package and CLI
 config.example.json          Example runtime configuration
+docs/                        Setup, usage, and privacy notes
 scripts/install_pi.sh        Raspberry Pi setup helper
 systemd/                     Optional service template
 tests/                       Unit tests for non-camera code
@@ -28,42 +29,39 @@ On Raspberry Pi OS, prefer system packages for OpenCV:
 
 ```sh
 sudo apt update
-sudo apt install -y python3-opencv python3-numpy python3-pip
-python3 -m pip install -r requirements.txt
-```
-
-For the LBPH recognizer, your OpenCV build must include the `cv2.face` module. If it is missing, install an OpenCV contrib package/build for your platform.
-
-## Quick Start
-
-Copy the example config:
-
-```sh
+sudo apt install -y python3 python3-venv python3-pip python3-opencv python3-numpy
+python3 -m venv .venv --system-site-packages
+. .venv/bin/activate
+python -m pip install -e .
 cp config.example.json config.json
 ```
+
+The `--system-site-packages` flag lets the virtual environment use the OpenCV package installed by apt.
+
+## Quick Start
 
 Check the environment:
 
 ```sh
-python3 -m raspberry_face_recognition doctor --config config.json
+python -m raspberry_face_recognition --config config.json doctor
 ```
 
 Collect samples for a person:
 
 ```sh
-python3 -m raspberry_face_recognition collect --config config.json --name yakup
+python -m raspberry_face_recognition --config config.json collect --name person_name
 ```
 
 Train the recognizer:
 
 ```sh
-python3 -m raspberry_face_recognition train --config config.json
+python -m raspberry_face_recognition --config config.json train
 ```
 
 Run live recognition:
 
 ```sh
-python3 -m raspberry_face_recognition recognize --config config.json
+python -m raspberry_face_recognition --config config.json recognize
 ```
 
 ## Data
@@ -76,14 +74,16 @@ By default, local runtime files are stored under `data/`:
 
 These files are ignored by Git because they may contain personal biometric data.
 
+## Documentation
+
+- [Raspberry Pi setup](docs/SETUP_RASPBERRY_PI.md)
+- [Usage guide](docs/USAGE.md)
+- [Privacy notes](docs/PRIVACY.md)
+
 ## Development
 
 Run tests that do not require a camera:
 
 ```sh
-python3 -m unittest discover -s tests -p "test_*.py"
+python -m unittest discover -s tests
 ```
-
-## Privacy Note
-
-Face images are sensitive data. Keep datasets local, avoid committing captured faces, and get consent before collecting samples from other people.
