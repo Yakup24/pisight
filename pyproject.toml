@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "raspberry-face-recognition"
+version = "0.1.0"
+description = "A Raspberry Pi face recognition starter built around OpenCV."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "Yakup24" }
+]
+dependencies = [
+  "numpy>=1.23"
+]
+
+[project.scripts]
+raspberry-face-recognition = "raspberry_face_recognition.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["raspberry_face_recognition*"]
