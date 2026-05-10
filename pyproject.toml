@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "raspberry-face-recognition"
+name = "pisight"
 version = "0.1.0"
-description = "A Raspberry Pi face recognition starter built around OpenCV."
+description = "A Raspberry Pi local face recognition toolkit built around OpenCV."
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
@@ -16,6 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
+pisight = "raspberry_face_recognition.cli:main"
 raspberry-face-recognition = "raspberry_face_recognition.cli:main"
 
 [tool.setuptools.packages.find]
