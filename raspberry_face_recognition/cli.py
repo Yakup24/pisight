@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 import sys
-from typing import Any, Sequence
+from typing import Any, Optional, Sequence
 
 from .config import load_config
 from .dataset import (
@@ -15,6 +15,7 @@ from .dataset import (
     load_label_map,
     next_sample_index,
     person_directory,
+    save_label_map,
 )
 from .vision import create_detector, create_recognizer, crop_face, detect_faces, require_cv2, require_numpy
 
@@ -134,10 +135,7 @@ def command_train(args: argparse.Namespace) -> int:
     recognizer.train(images, np.array(target_labels, dtype=np.int32))
     config.model_path.parent.mkdir(parents=True, exist_ok=True)
     recognizer.write(str(config.model_path))
-    save_path = config.labels_path
-    from .dataset import save_label_map
-
-    save_label_map(labels, save_path)
+    save_label_map(labels, config.labels_path)
 
     print(f"model: {config.model_path}")
     print(f"labels: {config.labels_path}")
@@ -220,7 +218,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
