@@ -1,11 +1,11 @@
-# Usage
+# PiSight Usage
 
 The workflow has three steps: collect samples, train a model, then run recognition.
 
 ## 1. Check the setup
 
 ```bash
-python -m raspberry_face_recognition --config config.json doctor
+pisight --config config.json doctor
 ```
 
 This checks the config file, OpenCV import, Haar cascade loading, and LBPH recognizer support.
@@ -13,7 +13,7 @@ This checks the config file, OpenCV import, Haar cascade loading, and LBPH recog
 ## 2. Collect face samples
 
 ```bash
-python -m raspberry_face_recognition --config config.json collect --name person_name
+pisight --config config.json collect --name person_name
 ```
 
 Collected images are saved under `data/faces/<person_name>/`. The `data/` directory is ignored by Git because it may contain personal data.
@@ -21,13 +21,13 @@ Collected images are saved under `data/faces/<person_name>/`. The `data/` direct
 You can change the sample count for one run:
 
 ```bash
-python -m raspberry_face_recognition --config config.json collect --name person_name --count 60
+pisight --config config.json collect --name person_name --count 60
 ```
 
 ## 3. Train the recognizer
 
 ```bash
-python -m raspberry_face_recognition --config config.json train
+pisight --config config.json train
 ```
 
 Training writes two local files:
@@ -40,7 +40,7 @@ Both are local runtime artifacts and should not be committed.
 ## 4. Run recognition
 
 ```bash
-python -m raspberry_face_recognition --config config.json recognize
+pisight --config config.json recognize
 ```
 
 The recognizer shows the predicted name and confidence score on the camera preview. Lower LBPH confidence is usually better. The `confidence_threshold` value in `config.json` controls when a prediction is treated as unknown.
