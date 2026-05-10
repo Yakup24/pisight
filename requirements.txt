@@ -1,0 +1,5 @@
+# Runtime dependency for training and recognition arrays.
+numpy>=1.23
+
+# On Raspberry Pi, install OpenCV from apt for better camera support:
+# sudo apt install python3-opencv
