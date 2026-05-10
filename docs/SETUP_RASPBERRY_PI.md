@@ -1,6 +1,6 @@
-# Raspberry Pi Setup
+# PiSight Raspberry Pi Setup
 
-This project expects a Raspberry Pi with a working camera and Python 3.9 or newer.
+PiSight expects a Raspberry Pi with a working camera and Python 3.9 or newer.
 
 ## Install system packages
 
@@ -25,20 +25,20 @@ The `--system-site-packages` flag lets the virtual environment use the OpenCV pa
 ## Check the device
 
 ```bash
-python -m raspberry_face_recognition --config config.json doctor
+pisight --config config.json doctor
 ```
 
 If the command reports that OpenCV is missing, confirm that `python3-opencv` is installed and that the virtual environment was created with `--system-site-packages`.
 
 ## Run as a service
 
-Adjust the paths and user in `systemd/raspberry-face-recognition.service`, then install it:
+Adjust the paths and user in `systemd/pisight.service`, then install it:
 
 ```bash
-sudo cp systemd/raspberry-face-recognition.service /etc/systemd/system/
+sudo cp systemd/pisight.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable raspberry-face-recognition
-sudo systemctl start raspberry-face-recognition
+sudo systemctl enable pisight
+sudo systemctl start pisight
 ```
 
-Use `journalctl -u raspberry-face-recognition -f` to inspect runtime logs.
+Use `journalctl -u pisight -f` to inspect runtime logs.
