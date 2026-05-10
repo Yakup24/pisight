@@ -1,0 +1,15 @@
+[Unit]
+Description=PiSight face recognition
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/pisight
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/home/pi/pisight/.venv/bin/pisight --config /home/pi/pisight/config.json recognize --no-window
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
