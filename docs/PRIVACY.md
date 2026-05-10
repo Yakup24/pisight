@@ -22,7 +22,7 @@ Only collect face samples from people who know what the system is doing and agre
 To remove local training data, stop the service and delete the `data/` directory:
 
 ```bash
-sudo systemctl stop raspberry-face-recognition
+sudo systemctl stop pisight
 rm -rf data/
 ```
 

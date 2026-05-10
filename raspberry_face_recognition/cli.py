@@ -82,7 +82,8 @@ def command_collect(args: argparse.Namespace) -> int:
                 face = max(faces, key=lambda item: item[2] * item[3])
                 crop = crop_face(gray, face, config.face_size)
                 image_path = output_dir / f"{next_index:06d}.png"
-                cv2.imwrite(str(image_path), crop)
+                if not cv2.imwrite(str(image_path), crop):
+                    raise RuntimeError(f"Could not write face sample: {image_path}")
                 saved += 1
                 next_index += 1
                 x, y, width, height = face
@@ -146,9 +147,11 @@ def command_train(args: argparse.Namespace) -> int:
 
 def command_recognize(args: argparse.Namespace) -> int:
     config = _load(args)
+    if not config.model_path.exists():
+        raise DatasetError(f"Model file not found: {config.model_path}. Run the train command first.")
+    labels = load_label_map(config.labels_path)
     cv2 = require_cv2()
     detector = create_detector(config)
-    labels = load_label_map(config.labels_path)
     recognizer = create_recognizer()
     recognizer.read(str(config.model_path))
     camera = _open_camera(cv2, config.camera_index)
