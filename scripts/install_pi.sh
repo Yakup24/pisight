@@ -18,4 +18,4 @@ if [ ! -f config.json ]; then
   cp config.example.json config.json
 fi
 
-python -m raspberry_face_recognition --config config.json doctor
+pisight --config config.json doctor
