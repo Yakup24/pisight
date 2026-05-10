@@ -21,6 +21,7 @@ class AppConfig:
     face_height: int = 160
     scale_factor: float = 1.2
     min_neighbors: int = 5
+    min_face_size: int = 60
     confidence_threshold: float = 70.0
     display: bool = True
 
@@ -64,6 +65,7 @@ def load_config(path: Optional[str] = None) -> AppConfig:
         face_height=int(data.get("face_height", AppConfig.face_height)),
         scale_factor=float(data.get("scale_factor", AppConfig.scale_factor)),
         min_neighbors=int(data.get("min_neighbors", AppConfig.min_neighbors)),
+        min_face_size=int(data.get("min_face_size", AppConfig.min_face_size)),
         confidence_threshold=float(data.get("confidence_threshold", AppConfig.confidence_threshold)),
         display=bool(data.get("display", AppConfig.display)),
     )
