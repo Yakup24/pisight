@@ -53,7 +53,7 @@ def detect_faces(frame: Any, detector: Any, config: Any) -> tuple[Any, Any]:
         gray,
         scaleFactor=config.scale_factor,
         minNeighbors=config.min_neighbors,
-        minSize=(config.face_width, config.face_height),
+        minSize=(config.min_face_size, config.min_face_size),
     )
     return gray, faces
 
