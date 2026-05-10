@@ -1,0 +1,15 @@
+[Unit]
+Description=Raspberry Pi face recognition
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/Raspberry-Face-Recognition-master
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/home/pi/Raspberry-Face-Recognition-master/.venv/bin/python -m raspberry_face_recognition --config /home/pi/Raspberry-Face-Recognition-master/config.json recognize --no-window
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
